@@ -57,11 +57,12 @@ The dataset used in this project comprises 2357 images sourced from the Internat
 - Fine-tune hyperparameters, such as learning rate and batch size.
 
 ## Visuals
-### Sample Visualizations
-(Add visuals of dataset classes and model results here.)
+## Visuals
+![Model Architecture](images/model_architecture.png)
+Figure 1: CNN model architecture for melanoma detection.
 
-### Training and Validation Curves
-(Add plots of accuracy and loss here.)
+![Model Accuracy and Loss](images/model_accuracy_loss.png)
+Figure 2: Model accuracy and loss during training and validation.
 
 ## Tools and Libraries Used
 - TensorFlow, Keras
