@@ -1,143 +1,85 @@
-# Project Name
-> Outline a brief description of your project.
 
-
-## Table of Contents
-* [General Info](#general-information)
-* [Technologies Used](#technologies-used)
-* [Conclusions](#conclusions)
-* [Acknowledgements](#acknowledgements)
-
-<!-- You can include any other section that is pertinent to your problem -->
-
-## General Information
-- Provide general information about your project here.
-- What is the background of your project?
-- What is the business probem that your project is trying to solve?
-- What is the dataset that is being used?
-
-<!-- You don't have to answer all the questions - just the ones relevant to your project. -->
-
-## Conclusions
-- Conclusion 1 from the analysis
-- Conclusion 2 from the analysis
-- Conclusion 3 from the analysis
-- Conclusion 4 from the analysis
-
-<!-- You don't have to answer all the questions - just the ones relevant to your project. -->
-
-
-## Technologies Used
-- library - version 1.0
-- library - version 2.0
-- library - version 3.0
-
-<!-- As the libraries versions keep on changing, it is recommended to mention the version of library used in this project -->
-
-## Acknowledgements
-Give credit here.
-- This project was inspired by...
-- References if any...
-- This project was based on [this tutorial](https://www.example.com).
-
-
-## Contact
-Created by [@githubusername] - feel free to contact me!
-
-
-<!-- Optional -->
-<!-- ## License -->
-<!-- This project is open source and available under the [... License](). -->
-
-<!-- You don't have to include all sections - just the one's relevant to your project -->
-
-
-# Melanoma Detection using Custom CNN
+# CNN-Based Melanoma Detection
 
 ## Project Overview
-This project builds a **custom Convolutional Neural Network (CNN)** model to classify images of skin cancer into 9 categories, focusing on accurately detecting melanoma, a deadly type of skin cancer. Early detection through automated solutions can aid dermatologists in diagnosis and reduce manual effort.
+This project aims to build a custom convolutional neural network (CNN) to accurately detect melanoma, a severe type of skin cancer accounting for 75% of skin cancer-related deaths. Early detection through automated solutions can significantly reduce the manual effort required in diagnosis.
 
-## Problem Statement
-To create a CNN-based model that can evaluate images and accurately detect melanoma and other skin diseases from a dataset of images.
+### Dataset Description
+The dataset used in this project comprises 2357 images sourced from the International Skin Imaging Collaboration (ISIC). It includes malignant and benign oncological diseases, categorized as follows:
+- Actinic keratosis
+- Basal cell carcinoma
+- Dermatofibroma
+- Melanoma
+- Nevus
+- Pigmented benign keratosis
+- Seborrheic keratosis
+- Squamous cell carcinoma
+- Vascular lesion
 
-**Dataset**: 
-- Sourced from the [International Skin Imaging Collaboration (ISIC)](https://www.isic-archive.com).
-- Contains **2,357 images** classified into 9 categories:
-   1. Actinic keratosis
-   2. Basal cell carcinoma
-   3. Dermatofibroma
-   4. Melanoma
-   5. Nevus
-   6. Pigmented benign keratosis
-   7. Seborrheic keratosis
-   8. Squamous cell carcinoma
-   9. Vascular lesion
+### Dataset Preparation
+- **Image Resizing**: All images are resized to 180x180 pixels.
+- **Normalization**: Pixel values are scaled to the range [0,1].
+- **Class Balancing**: Addressed class imbalances using the Augmentor library.
 
 ## Project Pipeline
-1. **Data Reading and Understanding**
-   - Defined paths for train and test images.
-2. **Dataset Creation**
-   - Created train and validation datasets with a batch size of 32.
-   - Resized images to 180x180.
-3. **Dataset Visualization**
-   - Visualized one instance of all 9 classes present in the dataset.
-4. **Model Building and Training**
-   - Built a **custom CNN** with Rescaling, Conv2D, MaxPooling, Dense, and Dropout layers.
-   - Used **Adam optimizer** and **categorical cross-entropy loss**.
-   - Trained the model for 20 epochs.
-   - **Findings**: Model achieved ~92% validation accuracy with slight signs of overfitting.
-5. **Data Augmentation**
-   - Applied augmentation strategies to address overfitting.
-6. **Class Distribution Analysis**
-   - Examined class imbalances and identified underrepresented classes.
-7. **Handling Class Imbalances**
-   - Used **Augmentor library** to balance the dataset by generating additional samples.
-8. **Model Training on Augmented Data**
-   - Retrained the CNN model on the balanced dataset for 30 epochs.
+1. **Data Understanding and Visualization**:
+   - Visualize samples from each class.
+2. **Model Building**:
+   - A custom CNN model is created without pre-trained models.
+   - The architecture consists of convolutional, pooling, and dense layers.
+   - Overfitting is controlled using dropout layers.
+3. **Model Training**:
+   - The model is trained for ~20 epochs using appropriate loss functions and optimizers.
+   - Class imbalances are rectified, and the model is retrained for ~30 epochs.
+4. **Evaluation**:
+   - The model's accuracy and loss curves are analyzed for signs of underfitting or overfitting.
 
-## Model Training and Findings
-### Accuracy and Loss Curves
-- **Accuracy**: Training and validation accuracy steadily improved, reaching ~92%.
-- **Loss**: Training loss continued decreasing, but validation loss stabilized after epoch 10, indicating slight overfitting.
+## CNN Architecture
+- **Input Shape**: (180, 180, 3)
+- **Convolutional Layers**:
+  - Three layers with filters: 32 → 64 → 128.
+  - Followed by MaxPooling2D to reduce spatial dimensions.
+- **Dense Layers**:
+  - Flatten → Dense (128 neurons, ReLU) → Dense (9 neurons, Softmax).
+- **Regularization**:
+  - Dropout: 50% after convolutional layers, 25% after the first dense layer.
+- **Optimization**:
+  - Adam optimizer and categorical cross-entropy loss function.
 
-### Suggestions for Improvement
-1. Implement **Early Stopping** to avoid overfitting.
-2. Add **Batch Normalization** for faster convergence.
+## Key Findings
+1. The training accuracy steadily increases, converging with validation accuracy around epoch 10.
+2. Slight overfitting is observed after epoch 20, indicated by a divergence in training and validation loss curves.
+3. Class imbalances initially hindered performance but were effectively addressed using augmentation techniques.
 
-## Technologies Used
-- **Python**: 3.9
-- **TensorFlow**: 2.12
-- **Keras**
-- **Augmentor**: For data augmentation
-- **Matplotlib**: Data visualization
-- **Seaborn**: Class distribution visualization
+### Recommendations
+- Implement **Batch Normalization** for faster convergence.
+- Use **Early Stopping** to prevent overfitting.
+- Fine-tune hyperparameters, such as learning rate and batch size.
 
-## Conclusion
-This project successfully builds a custom CNN model to classify skin cancer images into 9 classes. By addressing data imbalance and applying data augmentation, the model achieves high accuracy while maintaining generalization.
+## Visuals
+### Sample Visualizations
+(Add visuals of dataset classes and model results here.)
+
+### Training and Validation Curves
+(Add plots of accuracy and loss here.)
+
+## Tools and Libraries Used
+- TensorFlow, Keras
+- NumPy, Matplotlib, Pandas
+- Augmentor library for data augmentation
+- Jupyter Notebook for implementation
 
 ## Instructions to Run
-1. Clone this repository.
-2. Install required libraries:
-   ```bash
-   pip install tensorflow keras matplotlib seaborn augmentor
-   ```
-3. Run the Jupyter Notebook in a Python environment.
+1. Clone the repository.
+2. Install the required dependencies using `pip install -r requirements.txt`.
+3. Run the Jupyter Notebook `Vaibhav_Aggarwal_NN.ipynb` for step-by-step implementation.
 
-## Acknowledgements
-- **Dataset**: [ISIC Archive](https://www.isic-archive.com).
-- Project developed as part of the **upGrad & IIITB Machine Learning & AI Program**.
+## References
+- Dataset: [International Skin Imaging Collaboration (ISIC)](https://isic-archive.com/)
+- TensorFlow Documentation
 
-## Contact
-Created by **Vaibhav Aggarwal**. Feel free to reach out via email or GitHub for any questions or suggestions.
+---
 
+### Appendix: Additional Insights from Notebook
+Key hyperparameters, model architecture visualization, and code snippets are included in the attached notebook.
 
-
-## Model Architecture
-The following diagram shows the architecture of the CNN model:
-
-![Model Architecture](model_architecture.png)
-
-## Training and Validation Curves
-The following plot shows the accuracy and loss curves during training:
-
-![Training and Validation Curves](training_curves.png)
